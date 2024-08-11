@@ -17,6 +17,9 @@ env/
 venv/
 .venv/
 
+# Intellij IDE
+.idea/
+
 # Distribution / packaging
 .Python
 build/
