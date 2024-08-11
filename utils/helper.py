@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 from PIL import Image, ImageChops
 from io import BytesIO
 import urllib.request
+import pandas as pd
 # Function to make an API request and read JSON result
 def fetch_json(api_url, return_json=True):
     headers = {'user-agent': 'Insomnia 9.1'}
@@ -89,6 +90,28 @@ opener.addheaders = [
 ]
 
 
+def get_team_members(config, i) -> list:
+    l = []
+    team_id = i['competitorCode']
+    medalType = i['medalType'] 
+    TEAM_PROFILE_URL = config['TEAM_PROFILE_URL']
+    file_name = f'jsons/team_profile_{team_id}.json'
+    if os.path.exists(file_name) and os.path.getsize(file_name) > 0:
+        team_profile = load_json(file_name)
+    else:
+        team_profile = fetch_json(TEAM_PROFILE_URL.format(code=team_id))
+        save_json(team_profile, file_name)
+        
+    team_profile_list = team_profile['team']['athletes']
+
+    for member in team_profile_list:
+        r = dict()
+        r['competitorCode'] = member['person']['code']
+        r['competitorType'] = 'A'
+        r['medalType'] = medalType
+        l.append(r)
+    return l
+
 
 def fetch_image(url, code):
     
@@ -99,9 +122,9 @@ def fetch_image(url, code):
         
         image_path = f'images/{code}.jpg'
         if os.path.exists(image_path):
-            print('Image already exists')
             return Image.open(image_path)
-        return opener.retrieve(url, image_path)
+        opener.retrieve(url, image_path)
+        return Image.open(image_path)
          
         
         
@@ -152,3 +175,30 @@ def images_are_equal(img1_path, img2_path):
 def add_medal(image, medal, shift):
     image.paste(medal, shift, medal)
     return image
+
+
+
+def search_and_show(code, combined_athletes_dfs, code_2_disciplines,  medal_count=None):
+    combined_athletes = pd.concat(combined_athletes_dfs, ignore_index=True)
+    combined_athletes['code'] = combined_athletes['code'].astype(str)
+    athlete = combined_athletes[combined_athletes['code'] == str(code)].iloc[0]
+    
+    
+    given_name = athlete['given_name']
+    family_name = athlete['family_name']
+    age = int(athlete['age'])
+    noc_full = athlete['noc_full']
+    profile_url = athlete['detail_url'] 
+
+    discipline = code_2_disciplines[code_2_disciplines['code'] == code]['discipline_desc'].values[0]
+    image = fetch_image(athlete['picture_url'], code)
+    plt.imshow(image)
+    plt.axis('off')
+    
+    if medal_count:
+        plt.title(f"Name: {given_name} {family_name}\nAge: {age}\nCountry: {noc_full}\nDiscipline: {discipline}\n Medal Count: {medal_count}")
+    else:
+        plt.title(f"Name: {given_name} {family_name}\nAge: {age}\nCountry: {noc_full}\nDiscipline: {discipline}")
+    plt.show()
+    
+    
