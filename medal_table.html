@@ -1,0 +1,904 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Medal Table</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f8f9fa;
+                margin: 20px;
+                display: flex;
+                justify-content: center;
+                align-items: flex-start; /* Changed from center to flex-start */
+                height: 100vh;
+            }
+            .table-container {
+                width: 80%;
+                max-width: 800px;
+                margin: 0 auto;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 1em;
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+            }
+            thead {
+                background-color: #007bff;
+                color: #ffffff;
+                text-align: left;
+            }
+            th, td {
+                padding: 12px 15px;
+            }
+            tbody tr {
+                border-bottom: 1px solid #dddddd;
+            }
+            tbody tr:nth-of-type(even) {
+                background-color: #f3f3f3;
+            }
+            tbody tr:last-of-type {
+                border-bottom: 2px solid #007bff;
+            }
+            tbody tr.active-row {
+                font-weight: bold;
+                color: #007bff;
+            }
+        </style>
+        <!-- DataTables CSS -->
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+        <!-- jQuery -->
+        <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <!-- DataTables JS -->
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+    </head>
+    <body>
+        <div class="table-container">
+            <h1>Medal Table last updated at 13:39:51</h1>
+            <table id="medalTable" class="display">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Gold</th>
+                        <th>Silver</th>
+                        <th>Bronze</th>
+                        <th>Total</th>
+                        <th>Country</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+    
+                    <tr>
+                        <td>1</td>
+                        <td>40</td>
+                        <td>44</td>
+                        <td>42</td>
+                        <td>126</td>
+                        <td>United States of America</td>
+                    </tr>
+        
+                    <tr>
+                        <td>2</td>
+                        <td>40</td>
+                        <td>27</td>
+                        <td>24</td>
+                        <td>91</td>
+                        <td>People's Republic of China</td>
+                    </tr>
+        
+                    <tr>
+                        <td>3</td>
+                        <td>20</td>
+                        <td>12</td>
+                        <td>13</td>
+                        <td>45</td>
+                        <td>Japan</td>
+                    </tr>
+        
+                    <tr>
+                        <td>4</td>
+                        <td>18</td>
+                        <td>19</td>
+                        <td>16</td>
+                        <td>53</td>
+                        <td>Australia</td>
+                    </tr>
+        
+                    <tr>
+                        <td>5</td>
+                        <td>16</td>
+                        <td>26</td>
+                        <td>22</td>
+                        <td>64</td>
+                        <td>France</td>
+                    </tr>
+        
+                    <tr>
+                        <td>6</td>
+                        <td>15</td>
+                        <td>7</td>
+                        <td>12</td>
+                        <td>34</td>
+                        <td>Netherlands</td>
+                    </tr>
+        
+                    <tr>
+                        <td>7</td>
+                        <td>14</td>
+                        <td>22</td>
+                        <td>29</td>
+                        <td>65</td>
+                        <td>Great Britain</td>
+                    </tr>
+        
+                    <tr>
+                        <td>8</td>
+                        <td>13</td>
+                        <td>9</td>
+                        <td>10</td>
+                        <td>32</td>
+                        <td>Republic of Korea</td>
+                    </tr>
+        
+                    <tr>
+                        <td>9</td>
+                        <td>12</td>
+                        <td>13</td>
+                        <td>15</td>
+                        <td>40</td>
+                        <td>Italy</td>
+                    </tr>
+        
+                    <tr>
+                        <td>10</td>
+                        <td>12</td>
+                        <td>13</td>
+                        <td>8</td>
+                        <td>33</td>
+                        <td>Germany</td>
+                    </tr>
+        
+                    <tr>
+                        <td>11</td>
+                        <td>10</td>
+                        <td>7</td>
+                        <td>3</td>
+                        <td>20</td>
+                        <td>New Zealand</td>
+                    </tr>
+        
+                    <tr>
+                        <td>12</td>
+                        <td>9</td>
+                        <td>7</td>
+                        <td>11</td>
+                        <td>27</td>
+                        <td>Canada</td>
+                    </tr>
+        
+                    <tr>
+                        <td>13</td>
+                        <td>8</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>13</td>
+                        <td>Uzbekistan</td>
+                    </tr>
+        
+                    <tr>
+                        <td>14</td>
+                        <td>6</td>
+                        <td>7</td>
+                        <td>6</td>
+                        <td>19</td>
+                        <td>Hungary</td>
+                    </tr>
+        
+                    <tr>
+                        <td>15</td>
+                        <td>5</td>
+                        <td>4</td>
+                        <td>9</td>
+                        <td>18</td>
+                        <td>Spain</td>
+                    </tr>
+        
+                    <tr>
+                        <td>16</td>
+                        <td>4</td>
+                        <td>4</td>
+                        <td>3</td>
+                        <td>11</td>
+                        <td>Sweden</td>
+                    </tr>
+        
+                    <tr>
+                        <td>17</td>
+                        <td>4</td>
+                        <td>2</td>
+                        <td>5</td>
+                        <td>11</td>
+                        <td>Kenya</td>
+                    </tr>
+        
+                    <tr>
+                        <td>18</td>
+                        <td>4</td>
+                        <td>1</td>
+                        <td>3</td>
+                        <td>8</td>
+                        <td>Norway</td>
+                    </tr>
+        
+                    <tr>
+                        <td>19</td>
+                        <td>4</td>
+                        <td>0</td>
+                        <td>3</td>
+                        <td>7</td>
+                        <td>Ireland</td>
+                    </tr>
+        
+                    <tr>
+                        <td>20</td>
+                        <td>3</td>
+                        <td>7</td>
+                        <td>10</td>
+                        <td>20</td>
+                        <td>Brazil</td>
+                    </tr>
+        
+                    <tr>
+                        <td>21</td>
+                        <td>3</td>
+                        <td>6</td>
+                        <td>3</td>
+                        <td>12</td>
+                        <td>Islamic Republic of Iran</td>
+                    </tr>
+        
+                    <tr>
+                        <td>22</td>
+                        <td>3</td>
+                        <td>5</td>
+                        <td>4</td>
+                        <td>12</td>
+                        <td>Ukraine</td>
+                    </tr>
+        
+                    <tr>
+                        <td>23</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>2</td>
+                        <td>9</td>
+                        <td>Romania</td>
+                    </tr>
+        
+                    <tr>
+                        <td>24</td>
+                        <td>3</td>
+                        <td>3</td>
+                        <td>1</td>
+                        <td>7</td>
+                        <td>Georgia</td>
+                    </tr>
+        
+                    <tr>
+                        <td>25</td>
+                        <td>3</td>
+                        <td>1</td>
+                        <td>6</td>
+                        <td>10</td>
+                        <td>Belgium</td>
+                    </tr>
+        
+                    <tr>
+                        <td>26</td>
+                        <td>3</td>
+                        <td>1</td>
+                        <td>3</td>
+                        <td>7</td>
+                        <td>Bulgaria</td>
+                    </tr>
+        
+                    <tr>
+                        <td>27</td>
+                        <td>3</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>5</td>
+                        <td>Serbia</td>
+                    </tr>
+        
+                    <tr>
+                        <td>28</td>
+                        <td>3</td>
+                        <td>0</td>
+                        <td>2</td>
+                        <td>5</td>
+                        <td>Czechia</td>
+                    </tr>
+        
+                    <tr>
+                        <td>29</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>5</td>
+                        <td>9</td>
+                        <td>Denmark</td>
+                    </tr>
+        
+                    <tr>
+                        <td>30</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>7</td>
+                        <td>Azerbaijan</td>
+                    </tr>
+        
+                    <tr>
+                        <td>30</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>7</td>
+                        <td>Croatia</td>
+                    </tr>
+        
+                    <tr>
+                        <td>32</td>
+                        <td>2</td>
+                        <td>1</td>
+                        <td>6</td>
+                        <td>9</td>
+                        <td>Cuba</td>
+                    </tr>
+        
+                    <tr>
+                        <td>33</td>
+                        <td>2</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>4</td>
+                        <td>Bahrain</td>
+                    </tr>
+        
+                    <tr>
+                        <td>34</td>
+                        <td>2</td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>3</td>
+                        <td>Slovenia</td>
+                    </tr>
+        
+                    <tr>
+                        <td>35</td>
+                        <td>2</td>
+                        <td>0</td>
+                        <td>5</td>
+                        <td>7</td>
+                        <td>Chinese Taipei</td>
+                    </tr>
+        
+                    <tr>
+                        <td>36</td>
+                        <td>2</td>
+                        <td>0</td>
+                        <td>3</td>
+                        <td>5</td>
+                        <td>Austria</td>
+                    </tr>
+        
+                    <tr>
+                        <td>37</td>
+                        <td>2</td>
+                        <td>0</td>
+                        <td>2</td>
+                        <td>4</td>
+                        <td>Hong Kong, China</td>
+                    </tr>
+        
+                    <tr>
+                        <td>37</td>
+                        <td>2</td>
+                        <td>0</td>
+                        <td>2</td>
+                        <td>4</td>
+                        <td>Philippines</td>
+                    </tr>
+        
+                    <tr>
+                        <td>39</td>
+                        <td>2</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>3</td>
+                        <td>Algeria</td>
+                    </tr>
+        
+                    <tr>
+                        <td>39</td>
+                        <td>2</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>3</td>
+                        <td>Indonesia</td>
+                    </tr>
+        
+                    <tr>
+                        <td>41</td>
+                        <td>1</td>
+                        <td>5</td>
+                        <td>1</td>
+                        <td>7</td>
+                        <td>Israel</td>
+                    </tr>
+        
+                    <tr>
+                        <td>42</td>
+                        <td>1</td>
+                        <td>4</td>
+                        <td>5</td>
+                        <td>10</td>
+                        <td>Poland</td>
+                    </tr>
+        
+                    <tr>
+                        <td>43</td>
+                        <td>1</td>
+                        <td>3</td>
+                        <td>3</td>
+                        <td>7</td>
+                        <td>Kazakhstan</td>
+                    </tr>
+        
+                    <tr>
+                        <td>44</td>
+                        <td>1</td>
+                        <td>3</td>
+                        <td>2</td>
+                        <td>6</td>
+                        <td>Jamaica</td>
+                    </tr>
+        
+                    <tr>
+                        <td>44</td>
+                        <td>1</td>
+                        <td>3</td>
+                        <td>2</td>
+                        <td>6</td>
+                        <td>South Africa</td>
+                    </tr>
+        
+                    <tr>
+                        <td>44</td>
+                        <td>1</td>
+                        <td>3</td>
+                        <td>2</td>
+                        <td>6</td>
+                        <td>Thailand</td>
+                    </tr>
+        
+                    <tr>
+                        <td>47</td>
+                        <td>1</td>
+                        <td>3</td>
+                        <td>0</td>
+                        <td>4</td>
+                        <td>Ethiopia</td>
+                    </tr>
+        
+                    <tr>
+                        <td>48</td>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>5</td>
+                        <td>8</td>
+                        <td>Switzerland</td>
+                    </tr>
+        
+                    <tr>
+                        <td>49</td>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>5</td>
+                        <td>Ecuador</td>
+                    </tr>
+        
+                    <tr>
+                        <td>50</td>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>1</td>
+                        <td>4</td>
+                        <td>Portugal</td>
+                    </tr>
+        
+                    <tr>
+                        <td>51</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>6</td>
+                        <td>8</td>
+                        <td>Greece</td>
+                    </tr>
+        
+                    <tr>
+                        <td>52</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>3</td>
+                        <td>Argentina</td>
+                    </tr>
+        
+                    <tr>
+                        <td>52</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>3</td>
+                        <td>Egypt</td>
+                    </tr>
+        
+                    <tr>
+                        <td>52</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>3</td>
+                        <td>Tunisia</td>
+                    </tr>
+        
+                    <tr>
+                        <td>55</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>2</td>
+                        <td>Botswana</td>
+                    </tr>
+        
+                    <tr>
+                        <td>55</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>2</td>
+                        <td>Chile</td>
+                    </tr>
+        
+                    <tr>
+                        <td>55</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>2</td>
+                        <td>Saint Lucia</td>
+                    </tr>
+        
+                    <tr>
+                        <td>55</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>2</td>
+                        <td>Uganda</td>
+                    </tr>
+        
+                    <tr>
+                        <td>59</td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>Dominican Republic</td>
+                    </tr>
+        
+                    <tr>
+                        <td>60</td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>Guatemala</td>
+                    </tr>
+        
+                    <tr>
+                        <td>60</td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>Morocco</td>
+                    </tr>
+        
+                    <tr>
+                        <td>62</td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>Dominica</td>
+                    </tr>
+        
+                    <tr>
+                        <td>62</td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>Pakistan</td>
+                    </tr>
+        
+                    <tr>
+                        <td>64</td>
+                        <td>0</td>
+                        <td>3</td>
+                        <td>5</td>
+                        <td>8</td>
+                        <td>Türkiye</td>
+                    </tr>
+        
+                    <tr>
+                        <td>65</td>
+                        <td>0</td>
+                        <td>3</td>
+                        <td>2</td>
+                        <td>5</td>
+                        <td>Mexico</td>
+                    </tr>
+        
+                    <tr>
+                        <td>66</td>
+                        <td>0</td>
+                        <td>3</td>
+                        <td>1</td>
+                        <td>4</td>
+                        <td>Armenia</td>
+                    </tr>
+        
+                    <tr>
+                        <td>66</td>
+                        <td>0</td>
+                        <td>3</td>
+                        <td>1</td>
+                        <td>4</td>
+                        <td>Colombia</td>
+                    </tr>
+        
+                    <tr>
+                        <td>68</td>
+                        <td>0</td>
+                        <td>2</td>
+                        <td>4</td>
+                        <td>6</td>
+                        <td>Kyrgyzstan</td>
+                    </tr>
+        
+                    <tr>
+                        <td>68</td>
+                        <td>0</td>
+                        <td>2</td>
+                        <td>4</td>
+                        <td>6</td>
+                        <td>Democratic People's Republic of Korea</td>
+                    </tr>
+        
+                    <tr>
+                        <td>70</td>
+                        <td>0</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>4</td>
+                        <td>Lithuania</td>
+                    </tr>
+        
+                    <tr>
+                        <td>71</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>5</td>
+                        <td>6</td>
+                        <td>India</td>
+                    </tr>
+        
+                    <tr>
+                        <td>72</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>Republic of Moldova</td>
+                    </tr>
+        
+                    <tr>
+                        <td>73</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>Kosovo</td>
+                    </tr>
+        
+                    <tr>
+                        <td>74</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>Cyprus</td>
+                    </tr>
+        
+                    <tr>
+                        <td>74</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>Fiji</td>
+                    </tr>
+        
+                    <tr>
+                        <td>74</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>Jordan</td>
+                    </tr>
+        
+                    <tr>
+                        <td>74</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>Mongolia</td>
+                    </tr>
+        
+                    <tr>
+                        <td>74</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>Panama</td>
+                    </tr>
+        
+                    <tr>
+                        <td>79</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>3</td>
+                        <td>3</td>
+                        <td>Tajikistan</td>
+                    </tr>
+        
+                    <tr>
+                        <td>80</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>Albania</td>
+                    </tr>
+        
+                    <tr>
+                        <td>80</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>Grenada</td>
+                    </tr>
+        
+                    <tr>
+                        <td>80</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>Malaysia</td>
+                    </tr>
+        
+                    <tr>
+                        <td>80</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>Puerto Rico</td>
+                    </tr>
+        
+                    <tr>
+                        <td>84</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>Côte d'Ivoire</td>
+                    </tr>
+        
+                    <tr>
+                        <td>84</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>Cabo Verde</td>
+                    </tr>
+        
+                    <tr>
+                        <td>84</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>Refugee Olympic Team</td>
+                    </tr>
+        
+                    <tr>
+                        <td>84</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>Peru</td>
+                    </tr>
+        
+                    <tr>
+                        <td>84</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>Qatar</td>
+                    </tr>
+        
+                    <tr>
+                        <td>84</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>Singapore</td>
+                    </tr>
+        
+                    <tr>
+                        <td>84</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>Slovakia</td>
+                    </tr>
+        
+                    <tr>
+                        <td>84</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>Zambia</td>
+                    </tr>
+        
+                </tbody>
+            </table>
+        </div>
+         <script>
+    $(document).ready(function() {
+        $('#medalTable').DataTable();
+    });
+</script>
+    </body>
+    </html>
+    
