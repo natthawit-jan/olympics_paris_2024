@@ -179,6 +179,7 @@ def add_medal(image, medal, shift):
 
 
 def search_and_show(code, combined_athletes_dfs, code_2_disciplines,  medal_count=None):
+    
     combined_athletes = pd.concat(combined_athletes_dfs, ignore_index=True)
     combined_athletes['code'] = combined_athletes['code'].astype(str)
     athlete = combined_athletes[combined_athletes['code'] == str(code)].iloc[0]
@@ -190,6 +191,7 @@ def search_and_show(code, combined_athletes_dfs, code_2_disciplines,  medal_coun
     noc_full = athlete['noc_full']
     profile_url = athlete['detail_url'] 
 
+    
     discipline = code_2_disciplines[code_2_disciplines['code'] == code]['discipline_desc'].values[0]
     image = fetch_image(athlete['picture_url'], code)
     plt.imshow(image)
@@ -201,4 +203,10 @@ def search_and_show(code, combined_athletes_dfs, code_2_disciplines,  medal_coun
         plt.title(f"Name: {given_name} {family_name}\nAge: {age}\nCountry: {noc_full}\nDiscipline: {discipline}")
     plt.show()
     
+
+def month_number_to_month_name(month_num: int) -> str:
     
+    if pd.isna(month_num):
+        return 'Unknown'
+    months = {1: 'January', 2: 'February', 3: 'March', 4: 'April', 5: 'May', 6: 'June', 7: 'July', 8: 'August', 9: 'September', 10: 'October', 11: 'November', 12: 'December'}
+    return months[month_num]
