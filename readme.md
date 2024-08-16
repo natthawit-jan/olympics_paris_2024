@@ -1,6 +1,8 @@
 
 # Olympic Athletes Analysis and Medal Table
 
+### Visit this link for the medal table https://natthawit-jan.github.io/olympics_paris_2024/
+
 ## Overview
 
 This project encompasses two main components: an analysis of Olympic athletes' demographic and performance data, and the fetching of current medal standings. The data is processed and presented in an HTML table, making it easily accessible for users. The project includes scripts for periodic and instant updates of the medal table, which can be viewed in `index.html`.
