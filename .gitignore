@@ -1,6 +1,9 @@
 # Jupyter Notebook checkpoints
 .ipynb_checkpoints/
 
+*.png
+*.jpg 
+
 # Config and data files
 *.json
 *.csv
