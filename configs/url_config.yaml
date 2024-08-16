@@ -1,0 +1,12 @@
+# Default configuration file
+URLS:
+  MEDAL_URL: 
+  TEAM_PROFILE_URL: 
+  EVENTS_URL : 
+  NOCS_URL : 
+  DISCIPLINES_URL : 
+  PARTICIPANTS_URL : 
+  ATHELETES_URL : 
+  MEDALS_URL : 
+  BASE_API_URL: 
+
