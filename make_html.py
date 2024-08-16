@@ -146,7 +146,7 @@ def run_all():
     """
 
     # Save the HTML to a file
-    with open("medal_table.html", "w") as file:
+    with open("index.html", "w") as file:
         file.write(html)
 
 
