@@ -56,8 +56,8 @@ To run this project, follow these steps:
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/yourusername/olympic-analysis.git
-   cd olympic-analysis
+   git clone https://github.com/natthawit-jan/olympics_paris_2024.git
+   cd olympics_paris_2024
    ```
 
 2. **Install required packages**:
