@@ -7,6 +7,19 @@ from PIL import Image, ImageChops
 from io import BytesIO
 import urllib.request
 import pandas as pd
+
+nocs_df = pd.read_csv('csvs/noc.csv')
+noc_cd_nm_dict = nocs_df[['noc_code', 'noc_name']].set_index('noc_code')['noc_name'].to_dict()
+
+
+
+def load_medal_images():
+   medal_size = (50, 50)
+   medal_images = dict()
+   for medal in ['gold', 'silver', 'bronze']:
+      medal_images[medal] = Image.open(f'images/medals/{medal}.png').convert('RGBA').resize(medal_size)
+   return medal_images
+
 # Function to make an API request and read JSON result
 def fetch_json(api_url, return_json=True):
     headers = {'user-agent': 'Insomnia 9.1'}
@@ -210,3 +223,92 @@ def month_number_to_month_name(month_num: int) -> str:
         return 'Unknown'
     months = {1: 'January', 2: 'February', 3: 'March', 4: 'April', 5: 'May', 6: 'June', 7: 'July', 8: 'August', 9: 'September', 10: 'October', 11: 'November', 12: 'December'}
     return months[month_num]
+
+
+def get_full_name_from_short_code(code:str) -> str:
+    return  noc_cd_nm_dict.get(code, 'NA')
+
+
+
+class WinnerInfo:
+    def __init__(self, winner_obj):
+        self.code = winner_obj['competitorCode']
+        self.medalType = winner_obj['medalType']
+
+    def __str__(self):
+        return f"{self.code} - {self.medalType}"
+    
+    def __repr__(self):
+        return f"{self.code} - {self.medalType}"
+
+
+class Organization:
+
+    def __init__(self, table, config):
+        
+        self.config = config
+        self.country_code = table['organisation']
+        self.country_name = get_full_name_from_short_code(self.country_code)
+        self.rank = table['rank']
+
+        self.disciplines = dict()
+        self.winners = dict()
+        
+        self._process_all(table)
+    
+    def __str__(self):
+        return f"{self.country_name} ({self.country_code}), Rank: {self.rank},  Total Medals: {self.total_medals['Total']['total']}"
+
+    def __repr__(self):
+        return f"{self.country_name} ({self.country_code}), Rank: {self.rank},  Total Medals: {self.total_medals['Total']['total']}"
+        
+    def _process_all(self, table):
+        self._process_discipline_to_medals(table['disciplines'])
+        self._process_total_medals(table['medalsNumber'])
+        self._process_winners(table['disciplines'])
+    
+    def _build_winners_lst(self):
+        # if self.country_code == 'THA':
+        #     print(self.winners)
+        l = [w for disc in self.winners.values() for w in disc]
+        self.winners_lst = l
+
+        
+
+    def _process_winners(self, disciplines_lst):
+        _winner_dict = dict()
+        for disc in disciplines_lst:
+            disciplineC = disc['code']
+            _winner_dict[disciplineC] = _winner_dict[disciplineC] if disciplineC in _winner_dict.keys() else []
+            for winner_obj in disc['medalWinners']:
+                if winner_obj['competitorType'] == 'A':
+                    w = WinnerInfo(winner_obj)
+                    _winner_dict[disciplineC].append(w)
+                else:
+                    expanded_team_lst = get_team_members(self.config, winner_obj)
+                    for team_member in expanded_team_lst:
+                        w = WinnerInfo(team_member)
+                        _winner_dict[disciplineC].append(w)
+        self.winners = _winner_dict
+        self._build_winners_lst()
+
+    def _process_discipline_to_medals(self, discipline_lst):
+        _discipline_to_medals = dict()
+        for disc in discipline_lst:
+            _discipline_to_medals[disc['code']] = {k: disc[k] for k in ['gold', 'silver', 'bronze']}
+        self.disciplines_to_medals = _discipline_to_medals
+
+    def _process_total_medals(self, medals):
+        _total_medals = dict()
+        for medal in medals:
+            _total_medals[medal['type']] = {k: medal[k] for k in ['gold', 'silver', 'bronze', 'total']}
+        # print(_total_medals)
+        self.total_medals = _total_medals
+
+
+def countries_won_medals(config):  
+    MEDALS_URL = config['MEDAL_URL']
+    medals_json = fetch_json(MEDALS_URL)
+    save_json(medals_json, 'jsons/medals.json')
+    medal_tables = medals_json['medalStandings']['medalsTable']
+    return [m['organisation'] for m in medal_tables], medal_tables
